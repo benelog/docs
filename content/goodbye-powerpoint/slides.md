@@ -296,7 +296,7 @@ Python 소스 안에서
 
 --
 
-### PDF export
+### PDF 내보내기
 - 주소끝에 '?print-pdf'를 붙여서 연다
 - 크롬의 인쇄 옵션에서
     - 대상 : PDF로 저장
@@ -307,7 +307,7 @@ Python 소스 안에서
 
 --
 
-## Github Diff
+## Github 변경 이력
 
 ![diff](diff.png)
 
