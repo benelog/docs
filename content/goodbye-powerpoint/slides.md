@@ -119,7 +119,7 @@
 	- Multiplexing : 노트북-스마트폰에 나온 화면을 동기화
     	- socket.io을 이용한 구현
 	- 발표자 노트
-- 수식 지원, Leal motion 등 그외 다양한 기능
+- 수식 지원, Leap motion 등 다양한 기능
 
 --
 
@@ -165,11 +165,7 @@
 - Demo : <http://shwr.me/>
 - 역시나 Reveal.js와 유사하나 덜 풍부한 기능
 
-
 --
-
-
-
 
 ## 결론
 - Reveals.js가 내가 쓰려는 용도에 맞다
