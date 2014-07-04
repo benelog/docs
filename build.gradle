@@ -1,0 +1,31 @@
+buildscript {
+  repositories {
+      jcenter()
+  }
+
+  dependencies {
+    classpath 'org.ajoberstar:gradle-git:0.6.3'     
+  }
+}
+
+apply plugin: 'jetty'
+apply plugin: 'github-pages'                        
+
+jettyRun {
+  webAppSourceDirectory = file("content")
+  contextPath = ""
+}
+
+githubPages {
+  repoUri = 'git@github.com:benelog/docs.git'      
+  pages {
+     from(file('content')) {
+     	into '.'                                    
+     }
+  }
+}
+
+task publish(type: GradleBuild) {           
+    buildFile = 'publish.gradle'
+    tasks = ['publishGhPages']
+}
