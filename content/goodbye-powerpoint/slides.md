@@ -307,6 +307,10 @@ Python 소스 안에서
 
 --
 
+## Github Diff
+
+![diff](diff.png)
+
 ## Github Pages로 발행
 - gh-pages 브랜치에 push하면 'http://.[계정명].github.io/[저장소명]' 으로 접근 가능
 	- <http://benelog.github.io/docs/>
