@@ -9,23 +9,17 @@ buildscript {
 }
 
 apply plugin: 'jetty'
-apply plugin: 'github-pages'                        
-
 jettyRun {
   webAppSourceDirectory = file("content")
   contextPath = ""
 }
 
+apply plugin: 'github-pages'                        
 githubPages {
-  repoUri = 'git@github.com:benelog/docs.git'      
+  repoUri = 'git@github.com:benelog/docs.git'
   pages {
      from(file('content')) {
-     	into '.'                                    
+     	into '.'
      }
   }
-}
-
-task publish(type: GradleBuild) {           
-    buildFile = 'publish.gradle'
-    tasks = ['publishGhPages']
 }
