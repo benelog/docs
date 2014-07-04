@@ -312,6 +312,39 @@ Python 소스 안에서
 --
 
 ## Github Pages로 발행
+- gh-pages 브랜치에 push하면 'http://.[계정명].github.io/[저장소명]' 으로 접근 가능
+	- <http://benelog.github.io/docs/>
+- gh-pages 브랜치 생성
+	- [프로젝트 페이지 만들기](https://help.github.com/articles/creating-project-pages-manually) 참조
+- 발행할 폴더만 gh-pages에 복사, 'git add', 'git commit', 'git push' 
+- Gradle github-pages plugin을 명령어 한번으로 끝!
+	- <https://github.com/ajoberstar/gradle-git>
+
+--
+
+- build.gradle에 선언
+
+        buildscript {
+          repositories {
+              jcenter()
+          }
+          dependencies {
+            classpath 'org.ajoberstar:gradle-git:0.6.3'
+          }
+        }
+        apply plugin: 'github-pages'
+        githubPages {
+          repoUri = 'git@github.com:benelog/docs.git'
+          pages {
+             from(file('content')) {
+                into '.'
+             }
+          }
+        }
+
+- 명령행에서 
+
+		gradle publishGhPages
 
 --
 
@@ -327,12 +360,13 @@ Python 소스 안에서
 	- 한글 폰트까지 신경을 써서
 	- 기존의 회사 문서 템플릿과 유사한 테마 등
 
+--
+
 ## 자료
 - 이 발표 자료 예제 : <http://github.com/benelog/docs>
-  - Gradle 스크립트
-  - Python로 서버 실행 + 웹브라우저 열기
-  - Ruby로 서버 실행
-  - 윈도우즈 Powershell로 서버 실행
+	- [슬라이드 내용 Markdown 파일](https://github.com/benelog/docs/blob/master/content/goodbye-powerpoint/slides.md)
+	- [Gradle 스크립트](https://github.com/benelog/docs/blob/master/build.gradle)
+	- [Python로 서버 실행 + 웹브라우저 열기](https://github.com/benelog/docs/blob/master/start-py.sh)
 - Reveal.js 강의
 	- 생활코딩의 <http://opentutorials.org/module/390/4016>
 	- <http://htmlcheats.com/reveal-js/reveal-js-tutorial-reveal-js-for-beginners/>
