@@ -455,7 +455,7 @@
 --
 
 ## 코드 기여할 때 유의할 점
-- master의 최신 commit으로 rebase
+- master의 최신 커밋으로 rebase
 - 적절한 테스트 코드를 같이 커밋
 	- Local PC에서 모든 테스트를 돌려보고 커밋 (mvn test)
 	- Travis CI 통과를 확인
