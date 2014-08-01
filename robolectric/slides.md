@@ -314,30 +314,6 @@
 
 --
 
-
-## Activity 의존 클래스 테스트
-
-	@Test
-	public void shouldChangeScreenBrightness() {
-		TestActivity activity = createActivity(TestActivity.class);
-		float brightness = 0.5f;
-		ScreenUtils.setScreenBrightness(activity, brightness);
-
-		LayoutParams lp = activity.getWindow().getAttributes();
-
-		assertThat(lp.screenBrightness, is(brightness));
-	}
-
-    private <T extends Activity> T createActivity(Class<T> activityClass) {
-            ActivityController<T> controller = Robolectric.buildActivity(activityClass);
-            controller.create();
-            return controller.get();
-	}
-
-( [ScreenUtilsTest](https://github.com/naver/android-utilset/blob/master/UtilSet/test/com/navercorp/utilset/ui/ScreenUtilsTest.java) )
-
---
-
 ## DisplayMetricsDensity
 
     @RunWith(RobolectricTestRunner.class)
@@ -363,6 +339,42 @@
 
 - [org.robolectric.Robolectric](https://github.com/robolectric/robolectric/blob/master/src/main/java/org/robolectric/Robolectric.java) 클래스의 다양한 메서드를 활용할 수 있다
 
+
+--
+
+## View 의존 테스트
+
+	@Test
+	public void shouldChangeScreenBrightness() {
+		TestActivity activity = createActivity(TestActivity.class);
+		float brightness = 0.5f;
+		ScreenUtils.setScreenBrightness(activity, brightness);
+
+		LayoutParams lp = activity.getWindow().getAttributes();
+
+		assertThat(lp.screenBrightness, is(brightness));
+	}
+
+    private <T extends Activity> T createActivity(Class<T> activityClass) {
+            ActivityController<T> controller = Robolectric.buildActivity(activityClass);
+            controller.create();
+            return controller.get();
+	}
+
+( [ScreenUtilsTest](https://github.com/naver/android-utilset/blob/master/UtilSet/test/com/navercorp/utilset/ui/ScreenUtilsTest.java) )
+
+- Activity는 ActivityController를 이용해서 생성
+
+--
+
+### [assertj-android](https://github.com/square/assertj-android)
+
+    assertThat(layout).isVisible()
+        .isVertical()
+        .hasChildCount(4)
+        .hasShowDividers(SHOW_DIVIDERS_MIDDLE);
+
+- View객체에 대한 assert를 편하게 해주는 도우미 라이브러리
 
 --
 
@@ -401,9 +413,9 @@
 
 --
 
-- 실제 단말에서의 동작을 AndroidTestCase로 확인 ( <https://gist.github.com/benelog/7655764> )
+- 실제 단말에서의 동작을 AndroidTestCase로 확인 
 
-        CookieManager cookieManager;
+		CookieManager cookieManager;
 
         public void setUp() {
             Context context = getContext();
@@ -418,6 +430,8 @@
 			cookieManager.removeExpiredCookie();
 			assertEquals("name=value", cookieManager.getCookie(url));
 		}
+
+<https://gist.github.com/benelog/7655764>
 
 --
 
@@ -477,5 +491,10 @@
 	- 궁극적으로는 설계개선을 고민
 - 코드 기여도 어렵지 않다
 	- 기여자에게 관대하다
-- 참고자료
-	- [Android에서 @Inject, @Test](http://helloworld.naver.com/helloworld/342818)
+
+-- 
+# 참고자료
+- [Android에서 @Inject, @Test](http://helloworld.naver.com/helloworld/342818) (helloworld 블로그)
+- Gradle + Robolectric 설정 예제
+	- <https://github.com/kvandermast/my-robolectric-app>
+	- <https://github.com/robolectric/deckard-gradle>
