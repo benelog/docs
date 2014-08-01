@@ -494,7 +494,7 @@
 
 --
 
-# 참고자료
+## 참고자료
 - [Android에서 @Inject, @Test](http://helloworld.naver.com/helloworld/342818) (helloworld 블로그)
 - Gradle + Robolectric 설정 예제
 	- <https://github.com/kvandermast/my-robolectric-app>
