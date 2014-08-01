@@ -28,18 +28,9 @@
 ## 테스트 프레임워크
 - 테스트 실행 : JUnit
 	- 안드로이드 SDK에서도 JUnit 기반의 테스트 프레임워크 제공
-- 테스트용 가짜 객체 만들기 : Mockito, JMock, PowerMOck
+- 테스트용 가짜 객체 만들기 : Mockito, JMock, PowerMock
 - 안드로이드를 위한 테스트 프레임워크
 	- Robolectric, Robotium, Spoon, Robospock
-
---
-
-## 유의할 개념
-- JUnit으로 하는 테스트 != 유닛 테스트
-	- Functional 테스트 (혹은 시스템 테스트)도 JUnit으로 작성하는 경우도 많다.
-- 테스트 코드 작성 != TDD
-	- TDD는 테스트를 작성하는 하나의 방식
-	- TDD는 Test first -> Test 통과 -> Refactoring 단계를 거침
 
 --
 
@@ -49,6 +40,15 @@
 - 동작하는 예제, 명세
 - 회귀 테스트
 - 집중력
+
+--
+
+## 유의할 개념
+- JUnit으로 하는 테스트 != 유닛 테스트
+	- Functional 테스트 (혹은 시스템 테스트)도 JUnit으로 작성하는 경우도 많다.
+- 테스트 코드 작성 != TDD
+	- TDD는 테스트를 작성하는 하나의 방식
+	- TDD는 Test first -> Test 통과 -> Refactoring 단계를 거침
 
 ---
 
@@ -106,7 +106,7 @@
 	java.lang.RuntimeException: Stub!?
 
 - IDE안에서 안드로이드 코드를 돌리면 위와 같은 에러가 남.
-- Robolectric은 Android SDK가 제공하는 클래스에 가짜 동작을 심어서 JVM에서 ANdroid 코드를 실행할수 있게 한다.
+- Robolectric은 Android SDK가 제공하는 클래스에 가짜 동작을 심어서 JVM에서 Android 코드를 실행한다.
 
 --
 
@@ -151,22 +151,19 @@
     public class ViewParseUtilsMockTest {
         @Mock TextView input;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN);
-        
-        @Test
+		@Test
         public void validDate(){
             given(input.getText()).willReturn("2013-03-14");
             Calendar parsed = ViewParseUtils.parseDate(input, format);
-            
+
             assertDate(parsed, 2013, 3, 14); // custom assert
         }
-    
         @Test
         public void strangeButValidDate(){
             given(input.getText()).willReturn("2013-13-03");
             Calendar parsed = ViewParseUtils.parseDate(input, format);
             assertDate(parsed, 2014, 1, 3); // custom assert
         }
-
 		@Test
         @Ignore // AndroidLog 코드에 걸려서 test가 fail한다.
         public void wrongDateFormat(){
@@ -178,9 +175,11 @@
     ...
     }
 
+( [ViewParseUtilsMockTest.java](https://github.com/benelog/bookmarker/blob/master/src/test/java/helloworld/android/util/ViewParseUtilsMockTest.java) )
+
 - View의 기대동작을 Mock API로 지정해야함
-- Static 호출은 일반적인 Mocking 불가능
-	- PowerMock을 쓰면 가능하긴함
+- 'Log.i(..)'같은 Static 호출은 일반적인 Mocking 불가능
+	- PowerMock을 쓰면 가능하긴 함
 
 --
 
@@ -192,14 +191,12 @@
        	Calendar parsed = ViewParseUtils.parseDate(input, format);
         assertDate(parsed, 2013, 3, 14);
 	}
-
     @Test
     public void strangeButValidDate(){
         input.setText("2013-13-03");
         Calendar parsed = ViewParseUtils.parseDate(input, format);
         assertDate(parsed, 2014, 1, 3);
     }
-
 	@Test
     public void wrongDateFormat(){
         input.setText("2013/5/3");
@@ -207,6 +204,7 @@
         assertToday(parsed);
     }
 
+( [ViewParseUtilsTest.java](https://github.com/benelog/bookmarker/blob/master/src/test/java/helloworld/android/util/ViewParseUtilsTest.java) )
 
 - View 객체를 별도의 Mock없이 그대로 사용가능
 - Log.i 같은 static 메서드도 바로 기본 동작을 수행
@@ -218,10 +216,11 @@
     @RunWith(RobolectricTestRunner.class)
     @Config(manifest = Config.NONE)
     public class SystemUtilsTest {
-        @Before
-        public void setUp() {
-            ShadowLog.stream = System.out;
-        }
+
+	@Before
+	public void setUp() {
+		ShadowLog.stream = System.out;
+	}
 
 - android.util.Log를 호출하는 클래스라도 JVM에서 바로 실행
 
@@ -250,7 +249,7 @@
 
 --
 
-## System서비스의 호출 결과를 원하는 값으로
+## System서비스의 결과를 원하는 값으로
 
 	public static void setDeviceId(String deviceId) {
 		getTelManager().setDeviceId(deviceId);
@@ -279,6 +278,48 @@
 
 --
 
+### 통합 테스트 사례
+
+    @RunWith(RobolectricTestRunner.class)
+    @Config(manifest = Config.NONE)
+    public class NaverSearchTest {
+    
+        @Test
+        public void shouldSearch(){
+    
+            // given
+            RestTemplate apiClient = createRestClient();
+    
+            Map<String, String> params = new HashMap<String, String>();
+            String url = "http://openapi.naver.com/search?key={key}&target={target}&query={query}&start={start}&display={display}";
+            params.put("key", "....");
+            params.put("target", "news");
+            params.put("query", "네이버 오픈세미나");
+            params.put("start", "1");
+            params.put("display", "15");
+
+            // when
+            Channel channel = apiClient.getForObject(url, Channel.class, params);
+
+            // then
+            @SuppressWarnings("unchecked")
+            List<Item> items = channel.getItems();
+            // assert대신 System.out으로 출력
+        }
+
+( [SearchServiceTest.java](https://github.com/benelog/bookmarker/blob/master/src/test/java/helloworld/android/resttemplate/bookmarker/service/SearchServiceTest.java) )
+
+- Spring Android RestTemlate을 이용한 네이버 검색 오픈 API
+- Robolectric이 없이 그냥 JUnit4만 쓴다면?
+		java.lang.UnsatisfiedLinkError: android.util.Log.isLoggable(Ljava/lang/String;I)Z
+		at android.util.Log.isLoggable(Native Method)
+		at org.springframework.http.client.support.HttpAccessor.createRequest(HttpAccessor.java:85)
+		at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:472)
+
+
+
+--
+
 ### 같이 쓸만한 라이브러리
 - [Awaitility](https://github.com/jayway/awaitility)
 	- 비동기 호출을 테스트
@@ -287,7 +328,7 @@
 
 --
 
-### 사례
+#### Awaitility + Mock Http Server 활용 사례
 	@Test
 	public void responseShouldBeParsedWithUnknownProperties() throws Exception {
 		// Given
