@@ -492,7 +492,8 @@
 - 코드 기여도 어렵지 않다
 	- 기여자에게 관대하다
 
--- 
+--
+
 # 참고자료
 - [Android에서 @Inject, @Test](http://helloworld.naver.com/helloworld/342818) (helloworld 블로그)
 - Gradle + Robolectric 설정 예제
