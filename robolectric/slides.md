@@ -309,6 +309,8 @@
 
 ( [SearchServiceTest.java](https://github.com/benelog/bookmarker/blob/master/src/test/java/helloworld/android/resttemplate/bookmarker/service/SearchServiceTest.java) )
 
+--
+
 - Spring Android RestTemlate을 이용한 네이버 검색 오픈 API
 - Robolectric이 없이 그냥 JUnit4만 쓴다면?
 		java.lang.UnsatisfiedLinkError: android.util.Log.isLoggable(Ljava/lang/String;I)Z
