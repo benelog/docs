@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>자기소개</title>
+    <meta name="description" content="정상혁 소개">
+    <meta name="author" content="정상혁">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/reveal.min.css">
+    <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/css/theme/simple.css" id="theme">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="http://lab.hakim.se/reveal-js/lib/css/zenburn.css">
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<!-- Include the appropriate print stylesheet -->
+  <style>
+    body{
+      background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
+      background: -moz-linear-gradient(top, #eee, #fff);
+    }
+     .reveal h1,
+     .reveal h2,
+     .reveal h3,
+     .reveal h4,
+     .reveal h5,
+     .reveal h6,
+     .reveal li {
+          line-height: 1.6;
+    }
+    .reveal pre code {
+      max-height: 750px;
+      font-size : 1.5em;
+      line-height: 1.2;
+    }
+    </style>
+		<script>
+      var base = 'http://lab.hakim.se/reveal-js/';
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match(/print-pdf/gi) ? base + 'css/print/pdf.css' : base + 'css/print/paper.css';
+			document.getElementsByTagName('head')[0].appendChild( link );
+		</script>
+		<!--[if lt IE 9]>
+		<script src="http://lab.hakim.se/reveal-js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section background-transition="slide" data-background="labs-cover.jpg">
+          <h1>자기 소개</h1>
+          <h3 align="right">정상혁</h3>
+        </section>
+        <section data-markdown="slides.md" data-separator="^\n---\n$" data-separator-vertical="^\n--\n$"/>
+      </div>
+    </div>
+    <script src="http://lab.hakim.se/reveal-js/lib/js/head.min.js"></script>
+    <script src="http://lab.hakim.se/reveal-js/js/reveal.min.js"></script>
+		<script>
+      // markdown plugin은 최신버전에 data-vertical을 파싱하지 못하는 버그가 있어서 옛날버전을 사용
+
+			// https://github.com/hakimel/reveal.js#configuration 참고
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+        width: 1200,
+        height: 900,
+        slideNumber: true,
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'convex', // none/fade/slide/convex/concave/zoom
+				dependencies: [
+					{ src: base + 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: base + 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: base + 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: base + 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: base + 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: base + 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+  </body>
+</html>
