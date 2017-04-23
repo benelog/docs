@@ -4,7 +4,7 @@
 
 --
 
-### KSUG 3일꾼단 활동
+### KSUG 3기 일꾼단 활동
 --
 
 ### [네이버](http://recruit.navercorp.com/naver/job/list/developer) PaaS 소속
