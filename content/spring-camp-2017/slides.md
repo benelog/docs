@@ -4,6 +4,9 @@
 
 --
 
+### KSUG 3일꾼단 활동
+--
+
 ### [네이버](http://recruit.navercorp.com/naver/job/list/developer) PaaS 소속
 
 - 협업 플랫폼 개발, 사내 공통 프레임워크 기술 지원
@@ -62,7 +65,7 @@ return results;
 --
 
 - List의 아이템 개수를 모를 때에도 LinkedList 대신 ArrayList로 변경
-	- 받아 쓰는 쪽에서 List.get(i)로 접근하는 경우가 더 많이 때문에 바꾼 것으로 추정됨.
+	- 받아 쓰는 쪽에서 List.get(i)로 접근하는 경우가 더 많이 때문에 바꾼 것으로 추정됨.  `	1q	`
 
 ---
 
