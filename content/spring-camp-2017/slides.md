@@ -19,7 +19,7 @@
 --
 
 ## 발표내용
-Spring/KSUG를 돌아보면 생각나는 몇가지 이야기들
+### Spring/KSUG를 돌아보면 생각나는 몇가지 이야기들
 
 --
 
@@ -37,7 +37,7 @@ Spring/KSUG를 돌아보면 생각나는 몇가지 이야기들
 
 ## 코드 구경
 
-Spring framework 에서 인상 깊었던 코드들
+### Spring framework 에서 인상 깊었던 코드들
 
 ---
 
